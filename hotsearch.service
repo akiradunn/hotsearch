@@ -1,0 +1,11 @@
+[Unit]
+Description=hotsearch
+After=syslog.target
+
+[Service]
+User=root
+ExecStart=/usr/local/jdk1.8.0_231/bin/java -jar -Dspring.profiles.active=prod /site/project/hotsearch.jar
+
+
+[Install]
+WantedBy=multi-user.target
