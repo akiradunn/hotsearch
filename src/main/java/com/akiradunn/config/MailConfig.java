@@ -1,4 +1,4 @@
-package com.akiradunn.hotsearch.config;
+package com.akiradunn.config;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

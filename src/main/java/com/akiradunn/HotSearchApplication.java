@@ -1,4 +1,4 @@
-package com.akiradunn.hotsearch;
+package com.akiradunn;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -7,11 +7,11 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
-@MapperScan(basePackages = "com.akiradunn.hotsearch.dao")
-public class HotsearchApplication {
+@MapperScan(basePackages = "com.akiradunn.db.mapper")
+public class HotSearchApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(HotsearchApplication.class, args);
+        SpringApplication.run(HotSearchApplication.class, args);
     }
 
 }

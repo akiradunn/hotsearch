@@ -1,6 +1,6 @@
-package com.akiradunn.hotsearch.dao;
+package com.akiradunn.db.mapper;
 
-import com.akiradunn.hotsearch.pojo.Record;
+import com.akiradunn.db.model.Record;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

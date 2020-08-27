@@ -1,4 +1,4 @@
-package com.akiradunn.hotsearch.pojo;
+package com.akiradunn.db.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

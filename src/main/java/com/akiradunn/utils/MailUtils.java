@@ -1,6 +1,6 @@
-package com.akiradunn.hotsearch.utils;
+package com.akiradunn.utils;
 
-import com.akiradunn.hotsearch.config.MailConfig;
+import com.akiradunn.config.MailConfig;
 
 import javax.mail.Message;
 import javax.mail.Session;

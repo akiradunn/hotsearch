@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.akiradunn.hotsearch.dao.RecordMapper">
-  <resultMap id="BaseResultMap" type="com.akiradunn.hotsearch.pojo.Record">
+<mapper namespace="com.akiradunn.db.mapper.RecordMapper">
+  <resultMap id="BaseResultMap" type="com.akiradunn.db.model.Record">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
@@ -19,13 +19,13 @@
     delete from record
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.akiradunn.hotsearch.pojo.Record">
+  <insert id="insert" parameterType="com.akiradunn.db.model.Record">
     insert into record (id, title, createtime
       )
     values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.akiradunn.hotsearch.pojo.Record">
+  <insert id="insertSelective" parameterType="com.akiradunn.db.model.Record">
     insert into record
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -50,7 +50,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.akiradunn.hotsearch.pojo.Record">
+  <update id="updateByPrimaryKeySelective" parameterType="com.akiradunn.db.model.Record">
     update record
     <set>
       <if test="title != null">
@@ -62,7 +62,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.akiradunn.hotsearch.pojo.Record">
+  <update id="updateByPrimaryKey" parameterType="com.akiradunn.db.model.Record">
     update record
     set title = #{title,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=TIMESTAMP}
