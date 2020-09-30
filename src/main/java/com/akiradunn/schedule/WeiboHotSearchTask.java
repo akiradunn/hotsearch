@@ -17,6 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
 /**
  * @author akiradunn
  * @since 2020/8/27 17:46
@@ -32,7 +33,7 @@ public class WeiboHotSearchTask {
 
         //1.获取热搜榜单列表
         Elements hotSearchElements = getHotSearchElements(mailConfig);
-        if(hotSearchElements == null){
+        if (hotSearchElements == null) {
             return;
         }
 
@@ -44,7 +45,7 @@ public class WeiboHotSearchTask {
         Set<String> hotSearchTitleSet = records.stream().map(Record::getTitle).collect(Collectors.toSet());
         for (Element element : hotSearchElements) {
             String title = element.text();
-            if(title != null && title.contains(mailConfig.getWeibo_hotsearch_keyword()) && !hotSearchTitleSet.contains(title) ){
+            if (title != null && title.contains(mailConfig.getWeibo_hotsearch_keyword()) && !hotSearchTitleSet.contains(title)) {
                 newRecordSet.add(title);
                 String address = element.attr("abs:href");
                 stringBuffer.append("*").append(title).append(",热搜地址是：");
@@ -54,15 +55,16 @@ public class WeiboHotSearchTask {
         }
 
         //3.建立邮件服务，拼凑邮件内容发送邮件给配置收件人（读取配置文件）
-        if(isSend){
+        if (isSend) {
             pushMail(mailConfig, stringBuffer, newRecordSet);
-        }else{
+        } else {
             log.info("暂时无关注的热搜需要邮件推送...");
         }
     }
 
     /**
      * 获取热搜榜单列表
+     *
      * @param mailConfig
      * @return 热搜榜单列表
      * @date 2020/8/27 17:51
@@ -74,13 +76,14 @@ public class WeiboHotSearchTask {
             elements = doc.select("td.td-02 > a");
         } catch (IOException e) {
             e.printStackTrace();
-            log.error("微博热搜获取出错,原因为:",e);
+            log.error("微博热搜获取出错,原因为:", e);
         }
         return elements;
     }
 
     /**
      * 推送热搜邮件
+     *
      * @param mailConfig
      * @param stringBuffer
      * @param newRecordSet
@@ -92,11 +95,11 @@ public class WeiboHotSearchTask {
         try {
             List<Record> newRecords = newRecordSet.stream().map(t -> new Record(t)).collect(Collectors.toList());
             recordService.batchInsert(newRecords);
-            MailUtils.sendMail("邮件提醒",stringBuffer.toString(),mailConfig);
+            MailUtils.sendMail("邮件提醒", stringBuffer.toString(), mailConfig);
             log.info("已有热搜信息邮件推送成功...");
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("邮件发送出错",e);
+            log.error("邮件发送出错", e);
         }
         log.info("结束邮件发送...");
     }

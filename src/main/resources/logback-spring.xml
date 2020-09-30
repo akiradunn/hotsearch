@@ -1,50 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="10 seconds">
 
-	<springProperty scope="context" name="springAppName"
-					source="spring.application.name"/>
+    <springProperty scope="context" name="springAppName"
+                    source="spring.application.name"/>
 
-	<springProperty scope="context" name="logPath"
-					source="logPath"/>
+    <springProperty scope="context" name="logPath"
+                    source="logPath"/>
 
-	<property name="CONSOLE_LOG_PATTERN"
-			  value="[%date][%thread][hotsearch][%logger:%line][%M][%-5level][%X{logId}][%X{X-B3-TraceId:-}][%X{commandId}]  =>%msg%n"/>
+    <property name="CONSOLE_LOG_PATTERN"
+              value="[%date][%thread][hotsearch][%logger:%line][%M][%-5level][%X{logId}][%X{X-B3-TraceId:-}][%X{commandId}]  =>%msg%n"/>
 
-	<!--生产环境去掉控制台输出-->
-	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
-		<withJansi>true</withJansi>
-		<encoder>
-			<pattern>${CONSOLE_LOG_PATTERN}</pattern>
-			<charset>utf8</charset>
-		</encoder>
-	</appender>
+    <!--生产环境去掉控制台输出-->
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <withJansi>true</withJansi>
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
 
-	<appender name="dailyRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<File>${logPath}${springAppName}.log</File>
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<FileNamePattern>${springAppName}.%d{yyyy-MM-dd}-%i.log</FileNamePattern>
-			<maxHistory>30</maxHistory>
-			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-				<maxFileSize>100MB</maxFileSize>
-			</timeBasedFileNamingAndTriggeringPolicy>
-		</rollingPolicy>
-		<encoder>
-			<Pattern>${CONSOLE_LOG_PATTERN}</Pattern>
-		</encoder>
-		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-			<level>DEBUG</level>
-		</filter>
-	</appender>
-	<appender name ="ASYNC_FILE" class= "ch.qos.logback.classic.AsyncAppender">
-		<discardingThreshold>0</discardingThreshold>
-		<queueSize>1234</queueSize>
-		<includeCallerData>true</includeCallerData>
-		<appender-ref ref = "dailyRollingFileAppender"/>
-	</appender>
+    <appender name="dailyRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${logPath}${springAppName}.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${springAppName}.%d{yyyy-MM-dd}-%i.log</FileNamePattern>
+            <maxHistory>30</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <Pattern>${CONSOLE_LOG_PATTERN}</Pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+    </appender>
+    <appender name="ASYNC_FILE" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>1234</queueSize>
+        <includeCallerData>true</includeCallerData>
+        <appender-ref ref="dailyRollingFileAppender"/>
+    </appender>
 
-	<logger name="com.akiradunn" level="DEBUG"/>
-	<root level="info">
-		<appender-ref ref="ASYNC_FILE"/>
-	</root>
+    <logger name="com.akiradunn" level="DEBUG"/>
+    <root level="info">
+        <appender-ref ref="ASYNC_FILE"/>
+    </root>
 
 </configuration>
